@@ -12,15 +12,15 @@ export class IngredientService {
     return `This action returns all ingredient`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} ingredient`;
   }
 
-  update(id: number, updateIngredientDto: UpdateIngredientDto) {
+  update(id: string, updateIngredientDto: UpdateIngredientDto) {
     return `This action updates a #${id} ingredient`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} ingredient`;
   }
 }

@@ -1,4 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 import { CreateUserCollectionDto } from './create-user-collection.dto';
 
-export class UpdateUserCollectionDto extends PartialType(CreateUserCollectionDto) {}
+export class UpdateUserCollectionDto extends PartialType(
+  CreateUserCollectionDto,
+) {
+  @ApiProperty({
+    description: 'Collection name (optional)',
+    example: 'Updated Favorites',
+    required: false,
+  })
+  name?: string;
+}

@@ -16,6 +16,12 @@ export class Ingredient {
   @Column()
   name: string;
 
+  @Column()
+  gram: number;
+
+  @Column({ nullable: true })
+  caloriesPerGram?: number;
+
   @ManyToMany(() => Meal, (meal) => meal.ingredients)
   meals: Meal[];
 

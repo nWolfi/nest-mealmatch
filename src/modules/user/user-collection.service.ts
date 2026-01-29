@@ -12,15 +12,15 @@ export class UserCollectionService {
     return `This action returns all userCollection`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} userCollection`;
   }
 
-  update(id: number, updateUserCollectionDto: UpdateUserCollectionDto) {
+  update(id: string, updateUserCollectionDto: UpdateUserCollectionDto) {
     return `This action updates a #${id} userCollection`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} userCollection`;
   }
 }
