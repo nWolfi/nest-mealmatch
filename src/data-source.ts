@@ -8,8 +8,7 @@ const AppDataSource = new DataSource({
   password: 'postgres',
   database: 'mealmatch',
   entities: ['src/**/*.entity.ts'],
-  migrations: ['src/migrations/*.ts'],
-  synchronize: false,
+  synchronize: true,
 });
 
 module.exports = AppDataSource;

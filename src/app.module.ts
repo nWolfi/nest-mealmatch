@@ -17,9 +17,7 @@ import { UserModule } from './modules/user/user.module';
       database: 'mealmatch',
       entities: [],
       autoLoadEntities: true,
-      synchronize: false, // Deaktiviert, da wir Migrations verwenden
-      migrations: ['src/migrations/*.ts'],
-      migrationsTableName: 'migrations',
+      synchronize: true, // Aktiviert automatische Synchronisation
     }),
     UserModule,
     IngredientModule,

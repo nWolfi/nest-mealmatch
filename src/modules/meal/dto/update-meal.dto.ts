@@ -1,5 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 import { CreateIngredientDto } from '../../ingredient/dto/create-ingredient.dto';
 import { CreateMealDto } from './create-meal.dto';
 
@@ -9,6 +11,8 @@ export class UpdateMealDto extends PartialType(CreateMealDto) {
     example: 'Updated Spaghetti',
     required: false,
   })
+  @IsOptional()
+  @IsString()
   name?: string;
 
   @ApiProperty({
@@ -17,6 +21,7 @@ export class UpdateMealDto extends PartialType(CreateMealDto) {
     format: 'binary',
     required: false,
   })
+  @IsOptional()
   image?: Buffer;
 
   @ApiProperty({
@@ -25,5 +30,9 @@ export class UpdateMealDto extends PartialType(CreateMealDto) {
     required: false,
     example: [{ name: 'Tomato' }, { name: 'Pasta' }],
   })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateIngredientDto)
   ingredients?: CreateIngredientDto[];
 }

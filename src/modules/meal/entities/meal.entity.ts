@@ -16,7 +16,7 @@ export class Meal {
   @Column()
   name: string;
 
-  @Column({ type: 'bytea', nullable: true })
+  @Column({ type: 'bytea' })
   image: Buffer;
 
   @ManyToMany(() => Ingredient, (ingredient) => ingredient.meals, {

@@ -5,6 +5,7 @@ import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { Meal } from './entities/meal.entity';
 import { Ingredient } from '../ingredient/entities/ingredient.entity';
+import { MealDto } from './dto/meal.dto';
 
 @Injectable()
 export class MealService {
@@ -57,15 +58,23 @@ export class MealService {
     await this.mealRepository.delete(id);
   }
 
-  async getRandomMeal(excludeIds: string[]): Promise<Meal | null> {
-    const allMeals = await this.mealRepository.find();
-    const availableMeals = allMeals.filter(
-      (meal) => !excludeIds.includes(meal.id),
-    );
-    if (availableMeals.length === 0) {
-      return null;
+  async getRandom(): Promise<MealDto> {
+    const meals = await this.mealRepository.find();
+    if (meals.length === 0) {
+      throw new Error('No meals found');
     }
-    const randomIndex = Math.floor(Math.random() * availableMeals.length);
-    return availableMeals[randomIndex];
+   const randomMeal = meals[Math.floor(Math.random() * meals.length)];
+
+   const mealDto: MealDto = {
+     id: randomMeal.id,
+     name: randomMeal.name,
+     description: '', // Assuming description is not stored in the Meal entity
+     image: randomMeal.image
+       ? randomMeal.image.toString('base64')
+       : null
+   };
+
+   return mealDto;
   }
+
 }
