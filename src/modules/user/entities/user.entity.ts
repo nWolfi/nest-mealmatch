@@ -12,6 +12,9 @@ export class User {
   @Column()
   passwordHash: string;
 
+  @Column({ default: 'user' })
+  role: string;
+
   @OneToMany(() => UserCollection, (userCollection) => userCollection.user)
   userCollections: UserCollection[];
 }
