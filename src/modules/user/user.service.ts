@@ -80,8 +80,18 @@ export class UserService {
       relations: ['meals', 'meals.ingredients'],
     });
 
-    console.log('Collections:', collections[0]);
-    return collections[0];
+    const dto: MealDto[] = collections[0].meals.map((meal) => {
+      const mealDto: MealDto = {
+        id: meal.id,
+        name: meal.name,
+        description: '',
+        image: meal.image.toString('base64'),
+        ingredients: meal.ingredients,
+      };
+      return mealDto;
+    });
+
+    return dto;
   }
 
   async addMealToCollection(userId: string, mealId: string) {
