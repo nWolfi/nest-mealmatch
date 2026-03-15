@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -19,6 +11,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { User } from './entities/user.entity';
+import { CreateUserCollectionDto } from './dto/create-user-collection.dto';
+import { Meal } from '../meal/entities/meal.entity';
+import { MealBodyDto } from './dto/meal-body.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -62,5 +57,24 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   login(@Body() loginDto: LoginDto) {
     return this.userService.login(loginDto);
+  }
+
+  @Get('collection/:id')
+  @ApiOperation({ summary: 'Get collections for a user' })
+  @ApiParam({ name: 'id', type: String, description: 'User ID' })
+  @ApiResponse({ status: 200, description: 'Collections found' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  getCollections(@Param('id') id: string) {
+    return this.userService.getCollections(id);
+  }
+
+  @Post('collection/:id')
+  @ApiOperation({ summary: 'Add a collection to a user' })
+  @ApiParam({ name: 'id', type: String, description: 'User ID' })
+  @ApiBody({ type: String, description: 'Meal ID' })
+  @ApiResponse({ status: 201, description: 'Collection added' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  addCollection(@Param('id') id: string, @Body() meal: MealBodyDto) {
+    return this.userService.addMealToCollection(id, meal.mealId);
   }
 }
